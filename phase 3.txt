@@ -1,7 +1,7 @@
 - total bytes before cookie: 
 buffer 0x38 (dec: 56) + 8 bytes rsp + 8 bytes touch3 = 0x48 bytes (dec: 72)
 
-- address of $rsp + 0x48 bytes = 0x5561a0d0
+- address of $rsp 0x5561a088 + 0x48 bytes = 0x5561a0d0
 
 emacs phase3.s
     movq $0x5561a0d0,%rdi
