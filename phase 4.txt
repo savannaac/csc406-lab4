@@ -13,8 +13,7 @@ address 4019d4 + 2 extra bytes (58 starts two bytes after) = 4019d6
         4019c6:	8d 87 48 89 c7 c3       lea    -0x3c3876b8(%rdi),%eax
         4019cc:	c3                      retq
 - gadget2: 
-address 4019c6 + 2 extra bytes (48 starts two bytes after) = 4019c8 / 40 19 c8
-
+address 4019c6 + 2 extra bytes (48 starts two bytes after) = 4019c8
 
 
 cookie.txt
