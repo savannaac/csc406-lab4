@@ -34,7 +34,7 @@ http://www.unit-conversion.info/texttools/hexadecimal/
 37 36 65 62 64 62 35 36
 
 phase3.txt:
-48 c7 c7 d0 a0 61 55 c3 (included in padding)
+48 c7 c7 d0 a0 61 55 c3 (new cookie byte representation - included in padding)
 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 
 00 00 00 00 00 00 00 00
